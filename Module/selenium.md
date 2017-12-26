@@ -91,9 +91,69 @@ object.size() #获取尺寸大小
 
 ```
 ```
-from selenium.webdriver.common.by import By
-from selenium.webdriver.commom.keys import Keys
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
+隐式等待：如果webdriver没有在DOM中找到元素，将继续等待，超过设定的等待时间后找不到元素时，返回异常，隐式等待默认时间为0
+from selenium import webdriver
 
+browser = webdriver.Chrome()
+browser.implicitly_wait(10)
+browser.get('https://www.facebook.com')
+input = browser.find_element_by_class_name('img')
+print(input)
+
+显式等待：指定等待条件，指定等待时间，在等待时间内满足等待条件，正常返回；否则返回异常
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+browser = webdriver.Chrome()
+browser.get('https://www.taobao.com')
+wait = WebDriverWait(browser,10)   # 声明对象
+input = wait.until(EC.presence_of_element_located((By.ID,'q')))  # 传入等待条件
+button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,'.btn-search')))
+print(input,button)
+# 更多：http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.support.expected_conditions
+```
+```
+# 前进后退
+import time
+from selenium import webdriver
+
+url1 = 'http://www.baidu.com'
+url2 = 'https://www.zhihu.com'
+url3 = 'https://www.taobao.com'
+browser = webdriver.Chrome()
+browser.get(url1)
+browser.get(url2)
+browser.get(url3)
+browser.back()
+time.sleep(2)
+browser.forward()
+browser.close()
+```
+```
+# Cookies
+from selenium import webdriver
+
+browser = webdriver.Chrome()
+browser.get_cookies() # 获取cookies
+browser.add_cookies({'name':'name','domain':'www.zhihu.com'}) # 添加cookies,
+browser.delete_all_cookies() # 删除所有cookies
+```
+```
+# 选项卡管理(模拟js)
+import time
+from selenium import webdriver
+
+browser = webdriver.Chrome()
+browser.get('http://www.baidu.com')
+browser.execute_script(window.open())  # 新打开一个选项卡
+browser.switch_to_window(browser.window_handles[1])  #切换到新打开的选项卡
+browser.get('https://www.taobao.com') # 在新选项卡打开淘宝
+```
+```
+# 异常处理
+from selenium import webdriver
+from selenium.common.exception import TimeoutException,NoSuchElementException...
+#更多：http://selenium-python.readthedocs.io/api.html#selenium.common.exceptions
 ```
