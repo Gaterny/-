@@ -34,8 +34,8 @@ def save_img(html):
 	pattern2 = re.compile(r"input\ssrc='(.*?)'.*?>&nbsp")
 	img_urls = re.findall(pattern2, html)
 
-	root_dir = 'C:/Users/scuso/Desktop/demo-data/1024/'  #本地根目录路径
-	file_path = root_dir + str(title[0])                 #图集目录路路径
+	root_dir = 'path'  #本地根目录路径
+	file_path = root_dir + str(title[0])                 #图集目录路径
 	os.mkdir(file_path)
 
 	i = 1
