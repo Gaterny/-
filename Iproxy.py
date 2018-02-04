@@ -46,7 +46,6 @@ def get_random(ip_avaliable):
 	ip = random.choice(ip_avaliable)
 	return ip
 
-
 if __name__ == '__main__':
 	for i in range(1,10):
 		url = 'http://www.xicidaili.com/nn/' + str(i)
