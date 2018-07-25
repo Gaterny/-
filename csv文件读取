@@ -32,3 +32,14 @@ with open ('data.csv', newline='') as f:
 # ['beijing rita 14 1']
 
 
+# 对csv文件增加列
+import csv
+
+with open('./yangben.csv', encoding='utf8') as f:
+    rows = csv.reader(f)
+    with open('transf.csv', 'w',encoding='utf8', newline='') as f:   # newline='' 防止在windows下自动生成空行
+        writer = csv.writer(f)
+        for row in rows:
+            print(row)
+            row.insert(0,1)  # or row.append()在末尾增加列
+            writer.writerow(row)
