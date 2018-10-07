@@ -4,6 +4,13 @@
 
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from bs4 import BeautifulSoup
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+import time
 
 
 session = requests.Session()
@@ -64,6 +71,9 @@ def login_verify():
     """验证是否已在登录状态"""
 
     my_url = 'https://www.douban.com/mine/wallet/'
+    html=browser.page_source
+    soup=BeautifulSoup(html,"lxml")
+    print soup.prettify()
     # 禁止重定向，否则会出错
     # 访问我的钱包，status_code为200表示已登录，302表示未登录
     res = session.get(my_url, headers=headers, allow_redirects=False)
